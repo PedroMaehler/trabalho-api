@@ -1,19 +1,161 @@
-.aviso {
-  background: #fff3cd;
-  padding: 8px 12px;
-  border-radius: 6px;
+.caixa {
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+  margin: 16px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+.caixa h2 {
+  margin-top: 0;
 }
 
-.cabeçalho {
-  background: #61dafb;
-  padding: 16px;
+/* Campo e botão iguais em todas as buscas */
+form {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+input {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+button {
+  padding: 8px 14px;
+  font-size: 14px;
+  border: 1px solid #bbb;
+  border-radius: 6px;
+  background: #f8f8f8;
+  cursor: pointer;
+}
+button:hover {
+  background: #eee;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Os dois universos lado a lado */
+.colunas {
+  display: flex;
+  gap: 24px;
+}
+.coluna {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Mensagens dos três estados da requisição */
+.erro {
+  color: #b91c1c;
+}
+.sucesso {
+  color: #15803d;
+}
+/* Botão que volta para a lista do começo */
+.limpar {
+  margin-bottom: 12px;
+}
+
+/* Card: o mesmo para personagem, líder e Pokémon */
+.cartao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 2px solid #ddd;
   border-radius: 8px;
 }
-.cabecalho a {
-  color: #222;
+.cartao img {
+  object-fit: cover; /* foto em pé (Star Wars) cortada no quadrado, sem esticar */
+  border-radius: 8px;
 }
-.rodape {
-  margin-top: 32px;
+.cartao h3,
+.cartao p {
+  margin: 0;
+}
+/* Nome e detalhe ocupam todo o espaço que sobra: assim o botão fica sempre
+   no mesmo lugar, na ponta direita, seja o nome curto ou comprido */
+.cartao .info {
+  flex: 1;
+  min-width: 0;
+}
+.cartao h3 {
+  font-size: 16px;
+  white-space: nowrap;        /* nome sempre numa linha só */
+  overflow: hidden;
+  text-overflow: ellipsis;    /* nome comprido demais termina em "..." */
+  text-transform: capitalize; /* a PokéAPI manda "pikachu"; na tela vira "Pikachu" */
+}
+.cartao p {
+  font-size: 14px;
+  color: #555;
+}
+.cartao button {
+  width: 140px; /* todos os botões dos cards com a mesma largura */
+}
+.cartao-destaque {
+  border-color: green;
+  background: #f0fdf4;
+}
+
+/* Sugestões de nome de Pokémon enquanto digita */
+.sugestoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: -4px 0 12px;
+}
+.sugestoes button {
+  padding: 4px 10px;
+  border-radius: 14px;
+  text-transform: capitalize;
+}
+
+/* Botões das cidades do clima */
+.cidades {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.ativa {
+  font-weight: bold;
+  border-color: #2a78d6;
+  background: #e8f1fc;
+}
+
+/* Botão BATALHAR, aviso e placar */
+.batalhar {
+  display: block;
+  margin: 0 auto;
+  font-size: 20px;
+  padding: 12px 48px;
+}
+.aviso {
+  background: #fff3cd; /* o mesmo amarelo do .aviso da aula 1 */
+  padding: 8px 12px;
+  border-radius: 6px;
   text-align: center;
-  color: #777;
+}
+.placar {
+  text-align: center;
+}
+
+/* Tela estreita (celular): uma coluna embaixo da outra, e o botão do card
+   cede espaço para o nome. Fica no fim do arquivo porque, com a mesma força,
+   a regra que vem depois vence. */
+@media (max-width: 700px) {
+  .colunas {
+    flex-direction: column;
+    gap: 0;
+  }
+  .cartao button {
+    width: auto;
+    padding: 8px 10px;
+  }
 }
