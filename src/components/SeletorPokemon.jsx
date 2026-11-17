@@ -153,6 +153,11 @@ function SeletorPokemon({ titulo, time, aoAlterarTime }) {
             aoClicar={adicionar}
             desativado={timeCheio || jaEstaNoTime}
           />
+          {/* Diz por que o botão Adicionar desligou */}
+          {jaEstaNoTime && <p className="aviso">Este Pokémon já está no time.</p>}
+          {timeCheio && !jaEstaNoTime && (
+            <p className="aviso">Time completo. Remova um Pokémon para adicionar outro.</p>
+          )}
         </div>
       )}
 

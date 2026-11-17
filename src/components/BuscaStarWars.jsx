@@ -16,6 +16,7 @@ function BuscaStarWars({ lider, aoEscolherLider }) {
   const [texto, setTexto] = useState('');
   const [buscado, setBuscado] = useState(''); // vazio = mostrando os principais
   const [personagens, setPersonagens] = useState([]);
+  const [total, setTotal] = useState(0); // quantos a API achou (a tela mostra até 10)
   const [todos, setTodos] = useState([]); // todos os personagens, para filtrar enquanto digita
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState('');
@@ -42,6 +43,8 @@ function BuscaStarWars({ lider, aoEscolherLider }) {
       }
 
       setPersonagens(dados.results);
+      // count = quantos a busca achou (cada página traz no máximo 10)
+      setTotal(dados.count);
     } catch (err) {
       setErro(err.message);
     } finally {
@@ -113,16 +116,23 @@ function BuscaStarWars({ lider, aoEscolherLider }) {
   // (sem requisição nenhuma). Sem nada digitado, mostra o que veio da API.
   const digitado = texto.trim().toLowerCase();
   const filtrando = digitado !== '' && todos.length > 0;
-  const lista = filtrando
-    ? todos.filter((p) => p.name.toLowerCase().includes(digitado)).slice(0, 10)
-    : personagens;
+  // Todos os que têm as letras; a lista mostra até 10
+  const achados = todos.filter((p) => p.name.toLowerCase().includes(digitado));
+  const lista = filtrando ? achados.slice(0, 10) : personagens;
 
-  // Frase acima da lista: diz de onde ela veio
+  // Frase acima da lista: diz de onde ela veio e quantos foram achados
   let mensagem = 'Os 10 personagens principais. Para escolher outro, use a busca.';
+  let quantos = lista.length;
   if (filtrando) {
-    mensagem = `Personagens com "${texto.trim()}": ${lista.length}`;
+    quantos = achados.length;
+    mensagem = `Personagens com "${texto.trim()}": ${quantos}`;
   } else if (buscado !== '') {
-    mensagem = `Resultado da busca por "${buscado}": ${lista.length}`;
+    quantos = total;
+    mensagem = `Resultado da busca por "${buscado}": ${quantos}`;
+  }
+  // A lista para em 10. Se achou mais, a frase avisa
+  if (quantos > lista.length) {
+    mensagem = `${mensagem}, mostrando os ${lista.length} primeiros`;
   }
 
   return (
@@ -150,6 +160,7 @@ function BuscaStarWars({ lider, aoEscolherLider }) {
       {carregando && <p>Carregando...</p>}
       {erro && !filtrando && <p className="erro">{erro}</p>}
       {filtrando && lista.length === 0 && <p className="erro">Nenhum personagem com esse nome.</p>}
+      {digitado !== '' && todos.length === 0 && <p>Filtro indisponível por enquanto. Use o botão Buscar.</p>}
       {lista.length > 0 && <p className="sucesso">{mensagem}</p>}
       {buscado !== '' && !filtrando && (
         <button className="limpar" onClick={limparBusca}>Limpar busca</button>

@@ -22,30 +22,55 @@ function App() {
   const pronto =
     liderRick && liderStar && timeRick.length === 3 && timeStar.length === 3 && clima;
 
+  // Cada escolha nova apaga o placar antigo; o novo pede outro clique em BATALHAR
+  function escolherLiderRick(novoLider) {
+    setLiderRick(novoLider);
+    setBatalhou(false);
+  }
+
+  function escolherLiderStar(novoLider) {
+    setLiderStar(novoLider);
+    setBatalhou(false);
+  }
+
+  function alterarTimeRick(novoTime) {
+    setTimeRick(novoTime);
+    setBatalhou(false);
+  }
+
+  function alterarTimeStar(novoTime) {
+    setTimeStar(novoTime);
+    setBatalhou(false);
+  }
+
+  function escolherClima(novoClima) {
+    setClima(novoClima);
+    setBatalhou(false);
+  }
+
   return (
     <>
       <h1>Arena Multiverso</h1>
 
       <div className="colunas">
         <div className="coluna">
-          <BuscaRickMorty lider={liderRick} aoEscolherLider={setLiderRick} />
-          <SeletorPokemon titulo="Time Rick and Morty" time={timeRick} aoAlterarTime={setTimeRick} />
+          <BuscaRickMorty lider={liderRick} aoEscolherLider={escolherLiderRick} />
+          <SeletorPokemon titulo="Time Rick and Morty" time={timeRick} aoAlterarTime={alterarTimeRick} />
         </div>
         <div className="coluna">
-          <BuscaStarWars lider={liderStar} aoEscolherLider={setLiderStar} />
-          <SeletorPokemon titulo="Time Star Wars" time={timeStar} aoAlterarTime={setTimeStar} />
+          <BuscaStarWars lider={liderStar} aoEscolherLider={escolherLiderStar} />
+          <SeletorPokemon titulo="Time Star Wars" time={timeStar} aoAlterarTime={alterarTimeStar} />
         </div>
       </div>
 
-      <ArenaClima clima={clima} aoEscolherClima={setClima} />
+      <ArenaClima clima={clima} aoEscolherClima={escolherClima} />
 
       <button className="batalhar" onClick={() => setBatalhou(true)} disabled={!pronto}>
         BATALHAR
       </button>
       {!pronto && <p className="aviso">Escolha os dois líderes, 3 Pokémon em cada time e espere o clima.</p>}
 
-      {/* O placar é calculado na hora com os dados atuais: se alguém trocar
-          um Pokémon depois de batalhar, o resultado acompanha */}
+      {/* Só aparece depois do clique; as funções lá de cima o apagam */}
       {batalhou && pronto && (
         <Placar
           nomeRick={liderRick.nome}

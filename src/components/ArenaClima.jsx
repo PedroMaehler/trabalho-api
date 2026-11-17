@@ -13,9 +13,9 @@ const CIDADES = [
 ];
 
 // Transforma o clima real em efeito na batalha: bônus x1.5 e penalidade x0.5.
-// O código do tempo segue a tabela WMO: 51 a 99 é chuva, menos 71 a 77, que é neve.
+// O código do tempo segue a tabela WMO: 51 a 99 é chuva, menos 71 a 77, 85 e 86, que são neve.
 function classificar(temperatura, vento, codigo) {
-  const neve = codigo >= 71 && codigo <= 77;
+  const neve = (codigo >= 71 && codigo <= 77) || codigo === 85 || codigo === 86;
   if (codigo >= 51 && !neve) {
     return { nome: '🌧️ Chuva', bonus: ['water', 'electric', 'bug'], penalidade: ['fire', 'ground', 'rock'] };
   }
