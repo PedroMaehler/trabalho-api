@@ -84,3 +84,11 @@ function App() {
 }
 
 export default App;
+
+
+//https://rickandmortyapi.com/api/character/1
+//https://rickandmortyapi.com/api/character/?name=zzzz
+//https://swapi.dev/api/people/?search=zzzz
+//https://pokeapi.co/api/v2/pokemon/pikachu
+//https://api.open-meteo.com/v1/forecast?latitude=-15.601&longitude=-56.097&current_weather=true
+//https://rickandmortyapi.com/api/location/1
