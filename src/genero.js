@@ -4,9 +4,9 @@
 const GENEROS = {
   male: 'Masculino',
   female: 'Feminino',
-  genderless: 'Sem gênero', // Rick: alguns alienígenas
-  none: 'Sem gênero',       // Star Wars
-  'n/a': 'Sem gênero',      // Star Wars: os robôs (R2-D2, C-3PO)
+  genderless: 'Sem gênero', 
+  none: 'Sem gênero',       
+  'n/a': 'Sem gênero',      
   hermaphrodite: 'Hermafrodita',
   unknown: 'Desconhecido',
 };
